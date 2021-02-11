@@ -27,10 +27,11 @@ function AddNote() {
                 className="addNoteDiv addNoteContent"
                 onClick={() => visiableHeader()}
             />
-            <div
-                className="buttonVisibility"
-                style={styles.addNoteButton}
-            ><button>Hello</button></div>
+
+            {/* Send Button */}
+            <div className="buttonVisibility" style={styles.addNoteButton}>
+                <button>Kaydet</button>
+            </div>
 
 
 
