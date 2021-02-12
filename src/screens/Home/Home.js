@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, Row, Col } from "react-bootstrap"
 import { axiosInstance as api } from '../../utils/server'
 import UserInfo from "../UserInfo/UserInfo"
@@ -7,14 +7,20 @@ import AddNote from "../AddNote/AddNote"
 
 function Home() {
 
-    const cardColor = ['Primary', 'Secondary', 'Success', 'Danger', 'Warning', 'Info', 'Light', 'Dark'];
-
-    useEffect(()=>{
-        api.get('api/reminders').then(response => {
-            console.log(response)
+    const [noteData, setNoteData] = useState([])
+    useEffect(async () => {
+        await api.get('api/reminders').then(response => {
+            if (response.status) {
+                console.log(response.data.reminders)
+                setNoteData(response.data.reminders.reverse())
+            } else {
+                console.log("bağlantı hatası")
+            }
         })
-    })
+    }, []);
 
+
+    const cardColor = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'];
     return (
         <>
             <Navbar />
@@ -25,21 +31,21 @@ function Home() {
                     <Row><AddNote /></Row>
 
                     <Row>
-                        {cardColor.map((variant, idx) => (
-                            <Col sm={6} md={4} xl={3} key={idx}>
-                                <Card
-                                    bg={variant.toLowerCase()}
 
-                                    text={variant.toLowerCase() === 'light' ? 'dark' : 'white'}
+                        {noteData.map((data, idx) => (
+                            <Col sm={6} md={4} xl={3} key={data._id}>
+                                <Card
+                                    bg={idx >= 8 ? cardColor[idx %= 7] : cardColor[idx]}
+
+                                    text={cardColor[idx] === 'light' ? 'dark' : 'white'}
                                     style={{ width: '17rem' }}
                                     className="mb-2"
                                 >
 
                                     <Card.Body>
-                                        <Card.Title>{variant} Card Title </Card.Title>
+                                        <Card.Title>{data.title}</Card.Title>
                                         <Card.Text>
-                                            Some quick example text to build on the card title and make up the bulk
-                                            of the card's content.
+                                            {data.description}
                                         </Card.Text>
                                     </Card.Body>
                                 </Card>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect} from 'react'
+import { axiosInstance as api } from '../../utils/server'
 import styles from "./style"
 
 function AddNote() {
@@ -13,7 +14,24 @@ function AddNote() {
 
     const sendNote = () => {
        if(title || content){
-        console.log("title ve content gönderilecek")
+        if (title) {
+            api.post('api/create-reminder', {
+                title,
+                description:content,
+                completed: false,
+                type: false
+            }).then(response => {
+                if (response.data.status == false) {
+                    console.log('İşlem sırasında bir hata oluştu')
+                } else {
+                    console.log("not eklendi")
+                    setTitle("");
+                    setContent(""); 
+                }
+            })
+        } else {
+            console.log('Başlığın dolu olduğundan emin olun.')
+        }
        }else{
            console.log("içerik yok")
        }
@@ -27,6 +45,7 @@ function AddNote() {
                 placeholder="Başlık"
                 style={styles.addHeader}
                 className="inputHeader addNoteDiv"
+                value={title}
                 onInput={e => setTitle(e.target.value)}
             />
 
@@ -36,13 +55,20 @@ function AddNote() {
                 placeholder="Note alın.."
                 style={styles.addInput}
                 className="addNoteDiv addNoteContent"
+                value={content}
                 onClick={() => visiableHeader()}
                 onInput={e => setContent(e.target.value)}
             />
-
             {/* Send Button */}
             <div className="buttonVisibility" style={styles.addNoteButton}>
-                <button onClick={sendNote}>Kaydet</button>
+                <div style={{width:"1.5rem", height:"1.5rem", background:"red",marginRight:"10px" }}/>
+                <div style={{width:"1.5rem", height:"1.5rem", background:"black",marginRight:"10px" }}/>
+                <div style={{width:"1.5rem", height:"1.5rem", background:"yellow",marginRight:"10px"}}/>
+                <div style={{width:"1.5rem", height:"1.5rem", background:"skyblue",marginRight:"10px" }}/>
+                <div style={{width:"1.5rem", height:"1.5rem", background:"grey", marginRight:"10px"}}/>
+                <div style={{width:"1.5rem", height:"1.5rem", background:"blue",marginRight:"10px" }}/>
+                <div style={{width:"1.5rem", height:"1.5rem", background:"green",marginRight:"10px" }}/>
+                <button onClick={sendNote} >Kaydet</button>
             </div>
 
 

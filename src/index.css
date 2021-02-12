@@ -6,9 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* background: linear-gradient(to right, rgba(255,210,0),rgba(241,151,30));  */
- 
 
-  
 }
 .list-group-item {
   border:0

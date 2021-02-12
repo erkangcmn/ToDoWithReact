@@ -1,8 +1,8 @@
 import axios from 'axios'
 // import AsyncStorage from '@react-native-community/async-storage'
 
-export const BASE_URL = 'http://todoapp.teknozip.com:3000'
-// export const BASE_URL = 'http://192.168.1.11:3000'
+// export const BASE_URL = 'http://todoapp.teknozip.com:3000'
+export const BASE_URL = 'http://192.168.1.11:5000/'
 
 const axiosInstance = axios.create({
     baseURL: BASE_URL,

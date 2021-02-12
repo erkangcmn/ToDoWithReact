@@ -33,7 +33,7 @@ const styles = ({
         borderColor:"rgba(0,0,255,.2)",
         padding:"4px 16px 12px 16px",
         display:"flex",
-        flexDirection:"row-reverse",
+        flexDirection:"row",
         visibility: "hidden",
     }
 
