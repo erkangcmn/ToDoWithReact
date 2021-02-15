@@ -1,8 +1,9 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState} from 'react'
 import { axiosInstance as api } from '../../utils/server'
+import { connect } from 'react-redux'
 import styles from "./style"
 
-function AddNote() {
+const AddNote = ({setNote}) => {
     const [title, setTitle]   = useState("")
     const [content, setContent] = useState("")
 
@@ -13,6 +14,9 @@ function AddNote() {
     }
 
     const sendNote = () => {
+        setNote({
+            "title": title, "content": content
+        })
        if(title || content){
         if (title) {
             api.post('api/create-reminder', {
@@ -24,6 +28,8 @@ function AddNote() {
                 if (response.data.status == false) {
                     console.log('İşlem sırasında bir hata oluştu')
                 } else {
+                    
+                   
                     console.log("not eklendi")
                     setTitle("");
                     setContent(""); 
@@ -40,6 +46,7 @@ function AddNote() {
     return (
         <>
             {/* Add note header */}
+           
             <input
                 contentEditable="true"
                 placeholder="Başlık"
@@ -70,12 +77,17 @@ function AddNote() {
                 <div style={{width:"1.5rem", height:"1.5rem", background:"green",marginRight:"10px" }}/>
                 <button onClick={sendNote} >Kaydet</button>
             </div>
-
-
-
-
         </>
     )
 }
 
-export default AddNote
+
+const mapDispatchToProps = dispatch => ({
+    setNote: (data) => {
+        dispatch({ type: 'ADDNOTE', payload: data }
+        )
+    }
+})
+
+export default connect(null, mapDispatchToProps)(AddNote)
+

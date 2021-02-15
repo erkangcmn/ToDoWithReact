@@ -1,1 +1,1 @@
-export const ADDNOTE = "ADDNOTE"
+export const ADDNOTE = 'ADDNOTE'
