@@ -7,14 +7,18 @@ import Navbar from "../Components/Navbar/NavbarComponent"
 import AddNote from "../AddNote/AddNote"
 
 
-function Home({noteReducer}) {
+function Home({ noteReducer, setNote }) {
 
-    const [noteData, setNoteData] = useState([])
     useEffect(async () => {
         await api.get('api/reminders').then(response => {
             if (response.status) {
-                console.log(response.data.reminders)
-                setNoteData(response.data.reminders.reverse())
+
+                response.data.reminders.map(element => {
+
+                    setNote({
+                        "title": element.title, "content": element.description, "id": element._id
+                    })
+                });
             } else {
                 console.log("bağlantı hatası")
             }
@@ -33,29 +37,33 @@ function Home({noteReducer}) {
                     <Row><AddNote /></Row>
 
                     <Row>
-                        {console.log(noteReducer)}
-                    
-                        {noteData.length > 0 ?
-                            noteData.map((data, idx) => (
-                                <Col sm={6} md={4} xl={3} key={data._id}>
-                                    <Card
-                                        bg={idx >= 8 ? cardColor[idx %= 7] : cardColor[idx]}
+                        {
+                            noteReducer.length > 0 ?
+                                noteReducer.slice(0).reverse().map((note, idx) => {
+                                    console.log(note)
+                                    return (
 
-                                        text={cardColor[idx] === 'light' ? 'dark' : 'white'}
-                                        style={{ width: '17rem' }}
-                                        className="mb-2"
-                                    >
+                                        <Col sm={6} md={4} xl={3} key={note.id}>
 
-                                        <Card.Body>
-                                            <Card.Title>{data.title}</Card.Title>
-                                            <Card.Text>
-                                                {data.description}
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                            ))
-                            : "not ekleyin"
+                                            <Card
+                                                bg={idx >= 8 ? cardColor[idx %= 7] : cardColor[idx]}
+
+                                                text={cardColor[idx] === 'light' ? 'dark' : 'white'}
+                                                style={{ width: '17rem' }}
+                                                className="mb-2"
+                                            >
+
+                                                <Card.Body>
+                                                    <Card.Title>{note.title}</Card.Title>
+                                                    <Card.Text>
+                                                        {note.content}
+                                                    </Card.Text>
+                                                </Card.Body>
+                                            </Card>
+                                        </Col>
+                                    )
+                                })
+                                : "Not Ekleyin"
                         }
                     </Row>
                 </Col>
@@ -68,5 +76,12 @@ const mapStateToProps = state => ({
     noteReducer: state.noteReducer
 })
 
+const mapDispatchToProps = dispatch => ({
+    setNote: (data) => {
+        dispatch({ type: 'ADDNOTE', payload: data }
+        )
+    }
+})
 
-export default connect(mapStateToProps)(Home)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

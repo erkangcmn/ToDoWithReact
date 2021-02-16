@@ -14,9 +14,7 @@ const AddNote = ({setNote}) => {
     }
 
     const sendNote = () => {
-        setNote({
-            "title": title, "content": content
-        })
+      
        if(title || content){
         if (title) {
             api.post('api/create-reminder', {
@@ -27,9 +25,10 @@ const AddNote = ({setNote}) => {
             }).then(response => {
                 if (response.data.status == false) {
                     console.log('İşlem sırasında bir hata oluştu')
-                } else {
-                    
-                   
+                } else {  
+                    setNote({
+                        "title": title, "content": content, "id": response.data.id
+                    })
                     console.log("not eklendi")
                     setTitle("");
                     setContent(""); 
