@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Card, Row, Col } from "react-bootstrap"
 import { axiosInstance as api } from '../../utils/server'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStickyNote } from '@fortawesome/free-solid-svg-icons'
 import UserInfo from "../UserInfo/UserInfo"
 import { connect } from 'react-redux'
 import Navbar from "../Components/Navbar/NavbarComponent"
 import AddNote from "../AddNote/AddNote"
+import styles from "./style"
 
 
 function Home({ noteReducer, setNote }) {
@@ -16,7 +19,7 @@ function Home({ noteReducer, setNote }) {
                 response.data.reminders.map(element => {
 
                     setNote({
-                        "title": element.title, "content": element.description, "id": element._id
+                        "title": element.title, "content": element.description, "id": element._id, "color": element.color
                     })
                 });
             } else {
@@ -25,8 +28,6 @@ function Home({ noteReducer, setNote }) {
         })
     }, []);
 
-
-    const cardColor = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'];
     return (
         <>
             <Navbar />
@@ -40,16 +41,18 @@ function Home({ noteReducer, setNote }) {
                         {
                             noteReducer.length > 0 ?
                                 noteReducer.slice(0).reverse().map((note, idx) => {
-                                    console.log(note)
+
                                     return (
 
                                         <Col sm={6} md={4} xl={3} key={note.id}>
 
                                             <Card
-                                                bg={idx >= 8 ? cardColor[idx %= 7] : cardColor[idx]}
 
-                                                text={cardColor[idx] === 'light' ? 'dark' : 'white'}
-                                                style={{ width: '17rem' }}
+                                                style={{
+                                                    width: '17rem',
+                                                    background: note.color ? note.color : "grey",
+                                                    color: "white"
+                                                }}
                                                 className="mb-2"
                                             >
 
@@ -63,7 +66,10 @@ function Home({ noteReducer, setNote }) {
                                         </Col>
                                     )
                                 })
-                                : "Not Ekleyin"
+                                :
+                                <p style={styles.notNote}>
+                                    <FontAwesomeIcon icon={faStickyNote} size="lg"/> Eklediğiniz notlar burada gözükecek
+                                </p>
                         }
                     </Row>
                 </Col>

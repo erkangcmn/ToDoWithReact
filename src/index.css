@@ -12,15 +12,22 @@ body {
   border:0
 }
 
-
+.placeholderDivWhite::placeholder{
+  border: 10px;
+  color:white !important
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
 .addNoteDiv:empty:before {
-  content: attr(data-placeholder);
- 
+  content: attr(placeholder);
+  opacity: 0.6;
+  
+}
+.navbar-header {
+  border-bottom: "1px";
 }
 
 .addNoteDiv:focus {
