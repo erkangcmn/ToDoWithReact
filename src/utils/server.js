@@ -1,5 +1,5 @@
 import axios from 'axios'
-// import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-community/async-storage'
 
 // export const BASE_URL = 'http://todoapp.teknozip.com:3000'
 export const BASE_URL = 'http://192.168.1.11:5000/'
@@ -13,8 +13,8 @@ const axiosInstance = axios.create({
 })
 
 axiosInstance.interceptors.request.use(async (config) => {
-    // const token = await AsyncStorage.getItem('@user_token')
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjJiMTQ2M2ZhNTMyMjQ3N2NlYTEwYiIsImlhdCI6MTYxMzExNzg5OX0.MiT48JKluK8Z7wi3R9PMnnjzaObpFukpJmxQBozfiE0"
+    const token = await AsyncStorage.getItem('@user_token')
+    // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjJiMTQ2M2ZhNTMyMjQ3N2NlYTEwYiIsImlhdCI6MTYxMzExNzg5OX0.MiT48JKluK8Z7wi3R9PMnnjzaObpFukpJmxQBozfiE0"
     if (token !== null && token !== '') {
         config.headers.common['x-access-token'] = token
     }

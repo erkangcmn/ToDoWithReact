@@ -35,8 +35,10 @@ const styles = ({
         borderColor: "rgba(0,0,255,.2)",
         padding: "4px 16px 12px 16px",
         fontSize: "16px",
+        background:"none",
+        color:"black"
     },
-    logOutButton:{
+    registerButton:{
         width: "30%",
         borderRadius: "8px 8px 0px 0px",
         marginLeft: "auto",
@@ -47,6 +49,8 @@ const styles = ({
         borderColor: "rgba(0,0,255,.2)",
         padding: "4px 16px 12px 16px",
         fontSize: "16px",
+        background:"none",
+        color:"black"
     },
 
     // page text ToDo with react

@@ -8,13 +8,13 @@ function NavbarComponent() {
     return (
         <Navbar bg="light" expand="lg" className="navbar-header">
             <Navbar.Brand href="/">
-            <img src={logo} width="30px" height="30px"/>
+                <img src={logo} width="30px" height="30px" />
                 ToDo With React</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav" expand="lg">
-        
+
                 <Form inline style={{ marginRight: "auto", marginLeft: "auto" }}>
-                    <FontAwesomeIcon icon={faSearch} size="18px" color="#5f6368" />
+                    <FontAwesomeIcon icon={faSearch} size="1x" color="#5f6368" />
                     <FormControl
                         type="text"
                         placeholder="Arama yapın"
@@ -31,7 +31,7 @@ function NavbarComponent() {
                     <NavDropdown.Item href="#action/3.2">Arşiv</NavDropdown.Item>
                     <NavDropdown.Item href="#action/3.3">Hatırlatıcı</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action/3.4">Çıkış Yap</NavDropdown.Item>
+                    <NavDropdown.Item href="/logout">Çıkış Yap</NavDropdown.Item>
                     <NavDropdown.Item href="/login">Login</NavDropdown.Item>
                 </NavDropdown>
 

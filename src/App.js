@@ -10,7 +10,7 @@ import { Nav, Navbar, Image } from "react-bootstrap";
 //Pages
 import Home from './screens/Home/Home'
 import Login from "./screens/Login/Login"
-
+import LogOut from "./screens/LogOut/logOut"
 function App() {
   return (
     <Router>
@@ -18,6 +18,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
+        <Route path="/logout" component={LogOut} />
       </Switch>
       
     </Router>

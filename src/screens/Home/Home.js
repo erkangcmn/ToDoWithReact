@@ -6,26 +6,36 @@ import { faStickyNote } from '@fortawesome/free-solid-svg-icons'
 import UserInfo from "../UserInfo/UserInfo"
 import { connect } from 'react-redux'
 import Navbar from "../Components/Navbar/NavbarComponent"
+import AsyncStorage from '@react-native-community/async-storage';
 import AddNote from "../AddNote/AddNote"
+import { useHistory } from "react-router-dom";
 import styles from "./style"
 
 
 function Home({ noteReducer, setNote }) {
-
+    const history = useHistory()
     useEffect(async () => {
-        await api.get('api/reminders').then(response => {
-            if (response.status) {
-
-                response.data.reminders.map(element => {
-
-                    setNote({
-                        "title": element.title, "content": element.description, "id": element._id, "color": element.color
-                    })
-                });
-            } else {
-                console.log("bağlantı hatası")
-            }
-        })
+        const token = await AsyncStorage.getItem('@user_token')
+        if(token){
+            await api.get('api/reminders').then(response => {
+                if (response.status) {
+                    if(response.data.reminders){
+                        response.data.reminders.forEach(element => {
+    
+                            setNote({
+                                "title": element.title, "content": element.description, "id": element._id, "color": element.color
+                            })
+                        });
+                    }
+    
+                } else {
+                    console.log("bağlantı hatası")
+                }
+            })
+        }else{
+            history.push("/login")
+        }
+   
     }, []);
 
     return (

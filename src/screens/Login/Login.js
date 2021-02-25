@@ -1,21 +1,51 @@
-import React from 'react'
-import { Form, Container } from "react-bootstrap"
+import React, { useState } from 'react'
+import { Form, Container, Button } from "react-bootstrap"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import AsyncStorage from "@react-native-community/async-storage";
+import { axiosInstance as api } from '../../utils/server'
+import { useHistory } from "react-router-dom";
 import styles from "./style"
 function Login() {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const history = useHistory()
+    const sendLogin = async () => {
+       
+        if(email && password){
+            try {
+                const response = await api.post('login', {
+                    email,
+                    password
+                })
+                const payload = await response.data
+                if (payload.status) {
+                    await AsyncStorage.setItem('@user_token', payload.token)
+                    await AsyncStorage.setItem('@user_id', payload.id)
+                    await AsyncStorage.setItem('@user_email', email)
+                    history.push("/");
+                } else {
+                    console.log(payload.message)
+                }
+            } catch (error) {
+                console.log('bir hata oluştu')
+                console.log(error)
+            }
+        }else{
+            console.log("boş")
+        }
+    }
     return (
         <Container style={{ height: "100%" }}>
-
             <Form style={styles.loginForm}>
                 <p style={styles.notNote}>
                     <FontAwesomeIcon icon={faEdit} size="lg" className="mr-2" /> ToDo With React
                 </p>
-                <input placeholder="Email" style={styles.loginInput} />
-                <input placeholder="Şifreniz" style={styles.loginInput} />
+                <input placeholder="Email" value={email} onChange={(email) => setEmail(email.target.value)} style={styles.loginInput} />
+                <input type="password" placeholder="Şifreniz" value={password} onChange={(password) => setPassword(password.target.value)} style={styles.loginInput} />
                 <div style={styles.buttonDiv}>
-                    <button style={styles.loginButton}>Giriş Yap</button>
-                    <button style={styles.logOutButton}>Kayıt Ol</button>
+                    <Button style={styles.loginButton} onClick={() => sendLogin()}>Giriş Yap</Button>
+                    <Button style={styles.registerButton}>Kayıt Ol</Button>
                 </div>
 
             </Form>

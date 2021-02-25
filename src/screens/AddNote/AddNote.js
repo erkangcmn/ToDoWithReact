@@ -15,11 +15,9 @@ const AddNote = ({ setNote }) => {
         document.querySelector(".addNoteContent").style.borderRadius = "0px 0px 0px 0px"
     }
     const onRadioButtonClick = (e) => {
-        console.log(e.target.id)
         setCardColor(e.target.id)
     }
     const sendNote = () => {
-
         if ((title || content) && (cardColor.length > 0)) {
             if (title) {
                 api.post('api/create-reminder', {
@@ -32,12 +30,13 @@ const AddNote = ({ setNote }) => {
                     if (response.data.status == false) {
                         console.log('İşlem sırasında bir hata oluştu')
                     } else {
+
                         setNote({
                             "title": title, "content": content, "id": response.data.id, "color": cardColor
                         })
-                        console.log("not eklendi")
-                        setTitle("");
                         setContent("");
+                        setTitle("");
+                   
                     }
                 })
             } else {
@@ -51,6 +50,7 @@ const AddNote = ({ setNote }) => {
             }
         }
     }
+
 
     return (
         <>
@@ -73,16 +73,17 @@ const AddNote = ({ setNote }) => {
                 style={{ ...styles.addInput, background: cardColor, color: cardColor == "" ? "black" : "white" }}
                 className={cardColor.length > 0 ? "placeholderDivWhite addNoteDiv addNoteContent " : "addNoteDiv addNoteContent "}
                 value={content}
+                onInput={e => setContent(e.target.innerText)}
                 onClick={() => visiableHeader()}
-                onInput={e => setContent(e.target.value)}
+                
             />
             {/* Send Button */}
             <div className="buttonVisibility" style={{ ...styles.sendNoteCustomize, background: cardColor }}>
                 <form onClick={onRadioButtonClick} style={styles.addNoteForm}>
 
-                    {colors.map(color => {
+                    {colors.map((color, index) => {
                         return (
-                            <div id={color} style={{ ...styles.colorDiv, background: color }} />
+                            <div key={index} id={color} style={{ ...styles.colorDiv, background: color }} />
                         )
                     })
                     }
