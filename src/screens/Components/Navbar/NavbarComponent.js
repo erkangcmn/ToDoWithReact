@@ -29,7 +29,6 @@ function NavbarComponent() {
                 <NavDropdown title="Erkan Göçmen" id="collasible-nav-dropdown">
                     <NavDropdown.Item href="#action/3.1">Notlar</NavDropdown.Item>
                     <NavDropdown.Item href="#action/3.2">Arşiv</NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.3">Hatırlatıcı</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="/logout">Çıkış Yap</NavDropdown.Item>
                     <NavDropdown.Item href="/login">Login</NavDropdown.Item>

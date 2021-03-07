@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Card, Row, Col } from "react-bootstrap"
 import { axiosInstance as api } from '../../utils/server'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStickyNote } from '@fortawesome/free-solid-svg-icons'
+import { faStickyNote } from '@fortawesome/free-solid-svg-icons' // siyah ikonlar
+import { faTrashAlt, faEdit, faFileArchive  } from '@fortawesome/free-regular-svg-icons' // içi beyaz ikonlar
 import UserInfo from "../UserInfo/UserInfo"
 import { connect } from 'react-redux'
 import Navbar from "../Components/Navbar/NavbarComponent"
@@ -16,27 +17,39 @@ function Home({ noteReducer, setNote }) {
     const history = useHistory()
     useEffect(async () => {
         const token = await AsyncStorage.getItem('@user_token')
-        if(token){
+        if (token) {
             await api.get('api/reminders').then(response => {
                 if (response.status) {
-                    if(response.data.reminders){
+                    if (response.data.reminders) {
                         response.data.reminders.forEach(element => {
-    
+
                             setNote({
-                                "title": element.title, "content": element.description, "id": element._id, "color": element.color
+                                "title": element.title, "content": element.content, "id": element._id, "color": element.color
                             })
                         });
                     }
-    
+
                 } else {
                     console.log("bağlantı hatası")
                 }
             })
-        }else{
+        } else {
             history.push("/login")
         }
-   
+
     }, []);
+    function deleteNote(note) {
+        setNote({
+            "title": note.title, "content": note.content, "id": note.id, "color": note.color,
+        })
+        api.delete('api/reminder/' + note.id).then(response => {
+            if (response.data.status) {
+                console.log("Not Silindi")
+            }
+        })
+     
+    }
+
 
     return (
         <>
@@ -48,7 +61,8 @@ function Home({ noteReducer, setNote }) {
                     <Row><AddNote /></Row>
 
                     <Row>
-                        {
+                       
+                        {   
                             noteReducer.length > 0 ?
                                 noteReducer.slice(0).reverse().map((note, idx) => {
 
@@ -71,6 +85,11 @@ function Home({ noteReducer, setNote }) {
                                                     <Card.Text>
                                                         {note.content}
                                                     </Card.Text>
+                                                    <Row>
+                                                        <Col style={styles.cardTransactions}><FontAwesomeIcon icon={faEdit} style={{fontSize:"18px",cursor:"pointer"}}/></Col>
+                                                        <Col style={styles.cardTransactions}><FontAwesomeIcon icon={faFileArchive} style={{fontSize:"20px",cursor:"pointer"}}/></Col>
+                                                        <Col><FontAwesomeIcon icon={faTrashAlt} style={{fontSize:"18px",cursor:"pointer"}} onClick={()=>deleteNote(note)}/></Col>
+                                                    </Row>
                                                 </Card.Body>
                                             </Card>
                                         </Col>
@@ -78,7 +97,7 @@ function Home({ noteReducer, setNote }) {
                                 })
                                 :
                                 <p style={styles.notNote}>
-                                    <FontAwesomeIcon icon={faStickyNote} size="lg"/> Eklediğiniz notlar burada gözükecek
+                                    <FontAwesomeIcon icon={faStickyNote} size="lg" /> Eklediğiniz notlar burada gözükecek
                                 </p>
                         }
                     </Row>

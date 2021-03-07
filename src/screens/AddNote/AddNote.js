@@ -22,7 +22,7 @@ const AddNote = ({ setNote }) => {
             if (title) {
                 api.post('api/create-reminder', {
                     title,
-                    description: content,
+                    content:content,
                     completed: false,
                     type: false,
                     color: cardColor

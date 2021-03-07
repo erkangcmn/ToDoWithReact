@@ -25,7 +25,7 @@ function Login() {
                     await AsyncStorage.setItem('@user_email', email)
                     history.push("/");
                 } else {
-                    console.log(payload.message)
+                    // console.log(payload.message)
                 }
             } catch (error) {
                 console.log('bir hata oluştu')
