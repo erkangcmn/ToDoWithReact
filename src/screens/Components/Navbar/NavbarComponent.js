@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import logo from './logo512.png'
 
+
 function NavbarComponent() {
     return (
         <Navbar bg="light" expand="lg" className="navbar-header">

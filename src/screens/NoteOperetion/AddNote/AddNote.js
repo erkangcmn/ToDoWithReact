@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { axiosInstance as api } from '../../utils/server'
+import { axiosInstance as api } from '../../../utils/server'
 import { connect } from 'react-redux'
+import alertify from 'alertifyjs';
 import styles from "./style"
 
 const AddNote = ({ setNote }) => {
@@ -18,11 +19,12 @@ const AddNote = ({ setNote }) => {
         setCardColor(e.target.id)
     }
     const sendNote = () => {
+
         if ((title || content) && (cardColor.length > 0)) {
             if (title) {
                 api.post('api/create-reminder', {
                     title,
-                    content:content,
+                    content: content,
                     completed: false,
                     type: false,
                     color: cardColor
@@ -36,7 +38,7 @@ const AddNote = ({ setNote }) => {
                         })
                         setContent("");
                         setTitle("");
-                   
+                        alertify.success('Not Eklendi..');
                     }
                 })
             } else {
@@ -72,12 +74,13 @@ const AddNote = ({ setNote }) => {
                 placeholder="Note alın.."
                 style={{ ...styles.addInput, background: cardColor, color: cardColor == "" ? "black" : "white" }}
                 className={cardColor.length > 0 ? "placeholderDivWhite addNoteDiv addNoteContent " : "addNoteDiv addNoteContent "}
-                value={content}
+                value={"hayırdır"}
                 onInput={e => setContent(e.target.innerText)}
                 onClick={() => visiableHeader()}
-                
+
             />
             {/* Send Button */}
+            
             <div className="buttonVisibility" style={{ ...styles.sendNoteCustomize, background: cardColor }}>
                 <form onClick={onRadioButtonClick} style={styles.addNoteForm}>
 
@@ -97,7 +100,7 @@ const AddNote = ({ setNote }) => {
 
 const mapDispatchToProps = dispatch => ({
     setNote: (data) => {
-        dispatch({ type: 'ADDNOTE', payload: data }
+        dispatch({ type: 'NOTEOPERATION', payload: data }
         )
     }
 })

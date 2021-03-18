@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Row, Col } from "react-bootstrap"
+import { Card, Row, Col, Button } from "react-bootstrap"
 import { axiosInstance as api } from '../../utils/server'
+import { connect } from 'react-redux'
+import AsyncStorage from '@react-native-community/async-storage';
+import { useHistory } from "react-router-dom";
+import alertify from 'alertifyjs';
+// fontawesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStickyNote } from '@fortawesome/free-solid-svg-icons' // siyah ikonlar
-import { faTrashAlt, faEdit, faFileArchive  } from '@fortawesome/free-regular-svg-icons' // içi beyaz ikonlar
-import UserInfo from "../UserInfo/UserInfo"
-import { connect } from 'react-redux'
-import Navbar from "../Components/Navbar/NavbarComponent"
-import AsyncStorage from '@react-native-community/async-storage';
-import AddNote from "../AddNote/AddNote"
-import { useHistory } from "react-router-dom";
+import { faTrashAlt, faEdit, faFileArchive } from '@fortawesome/free-regular-svg-icons' // içi beyaz ikonlar
+//page
+import UserInfo from "../Components/LeftMenuBar/LeftMenuBar"
+import AddNote from "../NoteOperetion/AddNote/AddNote"
+import UpdateNoteModal from "../NoteOperetion/EditNote/EditNote"
+//style
 import styles from "./style"
 
+function Home({ noteReducer, setNote, getNote }) {
+    const history = useHistory();
 
-function Home({ noteReducer, setNote }) {
-    const history = useHistory()
     useEffect(async () => {
         const token = await AsyncStorage.getItem('@user_token')
         if (token) {
@@ -39,21 +43,27 @@ function Home({ noteReducer, setNote }) {
 
     }, []);
     function deleteNote(note) {
+
         setNote({
-            "title": note.title, "content": note.content, "id": note.id, "color": note.color,
+            "title": note.title, "content": note.content, "id": note.id, "color": note.color, "status": "delete"
         })
         api.delete('api/reminder/' + note.id).then(response => {
             if (response.data.status) {
-                console.log("Not Silindi")
+                alertify.error('Not Silindi..');
             }
         })
-     
+
     }
 
+    function editNote(note) {
+        getNote({
+            "title": note.title, "content": note.content, "id": note.id, "color": note.color, "status": "getnote"
+        })
+    }
 
     return (
         <>
-            <Navbar />
+
             <Row style={{ margin: 20 }}>
                 <Col md={12} xl={2}><UserInfo /></Col>
 
@@ -61,8 +71,8 @@ function Home({ noteReducer, setNote }) {
                     <Row><AddNote /></Row>
 
                     <Row>
-                       
-                        {   
+
+                        {
                             noteReducer.length > 0 ?
                                 noteReducer.slice(0).reverse().map((note, idx) => {
 
@@ -78,6 +88,7 @@ function Home({ noteReducer, setNote }) {
                                                     color: "white"
                                                 }}
                                                 className="mb-2"
+
                                             >
 
                                                 <Card.Body>
@@ -86,12 +97,13 @@ function Home({ noteReducer, setNote }) {
                                                         {note.content}
                                                     </Card.Text>
                                                     <Row>
-                                                        <Col style={styles.cardTransactions}><FontAwesomeIcon icon={faEdit} style={{fontSize:"18px",cursor:"pointer"}}/></Col>
-                                                        <Col style={styles.cardTransactions}><FontAwesomeIcon icon={faFileArchive} style={{fontSize:"20px",cursor:"pointer"}}/></Col>
-                                                        <Col><FontAwesomeIcon icon={faTrashAlt} style={{fontSize:"18px",cursor:"pointer"}} onClick={()=>deleteNote(note)}/></Col>
+                                                        <Col style={styles.cardTransactions} onClick={() => editNote(note)}><UpdateNoteModal /></Col>
+                                                        <Col style={styles.cardTransactions}><FontAwesomeIcon icon={faFileArchive} style={{ fontSize: "20px", cursor: "pointer" }} /></Col>
+                                                        <Col><FontAwesomeIcon icon={faTrashAlt} style={{ fontSize: "18px", cursor: "pointer" }} onClick={() => deleteNote(note)} /></Col>
                                                     </Row>
                                                 </Card.Body>
                                             </Card>
+
                                         </Col>
                                     )
                                 })
@@ -113,9 +125,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setNote: (data) => {
-        dispatch({ type: 'ADDNOTE', payload: data }
+        dispatch({ type: 'NOTEOPERATION', payload: data }
         )
-    }
+    },
+    getNote: (data) => {
+        dispatch({ type: 'GETNOTE', payload: data }
+        )
+    },
 })
 
 

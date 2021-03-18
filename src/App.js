@@ -5,16 +5,20 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import { Nav, Navbar, Image } from "react-bootstrap";
 
 //Pages
 import Home from './screens/Home/Home'
-import Login from "./screens/Login/Login"
-import LogOut from "./screens/LogOut/logOut"
+import Login from "./screens/Authenticate/Login/Login"
+import LogOut from "./screens/Authenticate/LogOut/logOut"
+
+import Navbar from "./screens/Components/Navbar/NavbarComponent"
+
+
 function App() {
+
   return (
     <Router>
-
+ <Navbar />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />

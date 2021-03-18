@@ -3,7 +3,7 @@ import { Form, Container, Button } from "react-bootstrap"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import AsyncStorage from "@react-native-community/async-storage";
-import { axiosInstance as api } from '../../utils/server'
+import { axiosInstance as api } from '../../../utils/server'
 import { useHistory } from "react-router-dom";
 import styles from "./style"
 function Login() {

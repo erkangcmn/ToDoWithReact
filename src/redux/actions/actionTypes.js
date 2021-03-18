@@ -1,1 +1,2 @@
-export const ADDNOTE = 'ADDNOTE'
+export const NOTEOPERATION = 'NOTEOPERATION'
+export const GETNOTE = 'GETNOTE'
