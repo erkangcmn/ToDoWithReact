@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import AsyncStorage from '@react-native-community/async-storage';
 import { useHistory } from "react-router-dom";
 import alertify from 'alertifyjs';
+
 // fontawesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStickyNote } from '@fortawesome/free-solid-svg-icons' // siyah ikonlar
@@ -13,15 +14,30 @@ import { faTrashAlt, faEdit, faFileArchive } from '@fortawesome/free-regular-svg
 import UserInfo from "../Components/LeftMenuBar/LeftMenuBar"
 import AddNote from "../NoteOperetion/AddNote/AddNote"
 import UpdateNoteModal from "../NoteOperetion/EditNote/EditNote"
+
+import Navbar from "../Components/Navbar/NavbarComponent"
 //style
 import styles from "./style"
 
 function Home({ noteReducer, setNote, getNote }) {
     const history = useHistory();
-
+    const [user, setUser] = useState([]);
+    const [token, setToken] = useState("")
     useEffect(async () => {
         const token = await AsyncStorage.getItem('@user_token')
+        console.log(token)
         if (token) {
+            setToken(token)
+
+            const id = (await AsyncStorage.getItem("@user_id"));
+            await api.get('api/user/' + id).then(res => {
+                console.log(res.data)
+                setUser(res.data)
+
+            }).catch(e => {
+                console.log("Hata => " + e)
+            })
+
             await api.get('api/reminders').then(response => {
                 if (response.status) {
                     if (response.data.reminders) {
@@ -63,7 +79,7 @@ function Home({ noteReducer, setNote, getNote }) {
 
     return (
         <>
-
+            <Navbar user={user} token={token} />
             <Row style={{ margin: 20 }}>
                 <Col md={12} xl={2}><UserInfo /></Col>
 

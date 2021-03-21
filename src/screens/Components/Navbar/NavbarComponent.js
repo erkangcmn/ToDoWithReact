@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navbar, Form, FormControl, NavDropdown } from "react-bootstrap"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import AsyncStorage from "@react-native-community/async-storage";
+import { axiosInstance as api } from '../../../utils/server'
 import logo from './logo512.png'
 
 
-function NavbarComponent() {
+function NavbarComponent(props) {
+
     return (
         <Navbar bg="light" expand="lg" className="navbar-header">
             <Navbar.Brand href="/">
@@ -25,15 +28,19 @@ function NavbarComponent() {
 
                 </Form>
             </Navbar.Collapse>
-            <Navbar.Collapse className="justify-content-end mr-2">
+            <Navbar.Collapse className="justify-content-end mr-5">
 
-                <NavDropdown title="Erkan Göçmen" id="collasible-nav-dropdown">
-                    <NavDropdown.Item href="#action/3.1">Notlar</NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.2">Arşiv</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="/logout">Çıkış Yap</NavDropdown.Item>
-                    <NavDropdown.Item href="/login">Login</NavDropdown.Item>
-                </NavDropdown>
+
+             {props.token ?
+                        <NavDropdown title={props.user.name} id="collasible-nav-dropdown">
+                            <NavDropdown.Item href="#action/3.1">Notlar</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.2">Arşiv</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item href="/logout">Çıkış Yap</NavDropdown.Item>
+                        </NavDropdown> 
+
+                : null }
+
 
             </Navbar.Collapse>
 
