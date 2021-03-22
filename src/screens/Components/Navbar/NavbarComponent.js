@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Navbar, Form, FormControl, NavDropdown } from "react-bootstrap"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import AsyncStorage from "@react-native-community/async-storage";
-import { axiosInstance as api } from '../../../utils/server'
 import logo from './logo512.png'
 
 
@@ -31,8 +29,8 @@ function NavbarComponent(props) {
             <Navbar.Collapse className="justify-content-end mr-5">
 
 
-             {props.token ?
-                        <NavDropdown title={props.user.name} id="collasible-nav-dropdown">
+             {props && props.token ?
+                        <NavDropdown title={props.user.name ?  props.user.name : "user"} id="collasible-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">Notlar</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.2">Arşiv</NavDropdown.Item>
                             <NavDropdown.Divider />

@@ -25,13 +25,11 @@ function Home({ noteReducer, setNote, getNote }) {
     const [token, setToken] = useState("")
     useEffect(async () => {
         const token = await AsyncStorage.getItem('@user_token')
-        console.log(token)
         if (token) {
             setToken(token)
 
             const id = (await AsyncStorage.getItem("@user_id"));
             await api.get('api/user/' + id).then(res => {
-                console.log(res.data)
                 setUser(res.data)
 
             }).catch(e => {
