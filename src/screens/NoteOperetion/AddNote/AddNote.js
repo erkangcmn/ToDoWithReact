@@ -8,7 +8,7 @@ const AddNote = ({ setNote }) => {
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
     const [cardColor, setCardColor] = useState("")
-    const colors = ["#D33F49", "#343A40", "#ECA400", "green", "#5E0035", "#006992", "skyblue"]
+    const colors = ["#D33F49", "#343A40", "#EC9F05", "#43B929", "#58355E", "#006992", "#F34213"]
     function visiableHeader() {
         document.querySelector(".inputHeader").style.visibility = "visible"
         document.querySelector(".buttonVisibility").style.visibility = "visible"
@@ -80,7 +80,7 @@ const AddNote = ({ setNote }) => {
 
             />
             {/* Send Button */}
-            
+
             <div className="buttonVisibility" style={{ ...styles.sendNoteCustomize, background: cardColor }}>
                 <form onClick={onRadioButtonClick} style={styles.addNoteForm}>
 
