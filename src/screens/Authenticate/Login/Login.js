@@ -5,6 +5,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import AsyncStorage from "@react-native-community/async-storage";
 import { axiosInstance as api } from '../../../utils/server'
 import { useHistory } from "react-router-dom";
+import alertify from 'alertifyjs';
 import styles from "./style"
 function Login() {
     const [email, setEmail] = useState("")
@@ -25,15 +26,23 @@ function Login() {
                     await AsyncStorage.setItem('@user_email', email)
                     history.push("/");
                 } else {
-                    // console.log(payload.message)
+                    alertify.error(payload.message)
                 }
             } catch (error) {
                 console.log('bir hata oluştu')
                 console.log(error)
             }
         }else{
-            console.log("boş")
+            if(!email){
+                alertify.error('Mail boş olamaz..');
+            }
+            if(!password){
+                alertify.error('Şifre boş olamaz..');
+            }
         }
+    }
+    const goRegister =()=>{
+        history.push("/register")
     }
     return (
         <Container style={{ height: "100%" }}>
@@ -45,7 +54,7 @@ function Login() {
                 <input type="password" placeholder="Şifreniz" value={password} onChange={(password) => setPassword(password.target.value)} style={styles.loginInput} />
                 <div style={styles.buttonDiv}>
                     <Button style={styles.loginButton} onClick={() => sendLogin()}>Giriş Yap</Button>
-                    <Button style={styles.registerButton}>Kayıt Ol</Button>
+                    <Button style={styles.registerButton} onClick={() => goRegister()}>Kayıt Ol</Button>
                 </div>
 
             </Form>

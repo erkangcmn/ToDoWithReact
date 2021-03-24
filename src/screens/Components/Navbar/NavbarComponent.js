@@ -11,28 +11,24 @@ function NavbarComponent(props) {
         <Navbar bg="light" expand="lg" className="navbar-header">
             <Navbar.Brand href="/">
                 <img src={logo} width="30px" height="30px" />
-                ToDo With React</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav" expand="lg">
-
-                <Form inline style={{ marginRight: "auto", marginLeft: "auto" }}>
-                    <FontAwesomeIcon icon={faSearch} size="1x" color="#5f6368" />
-                    <FormControl
+                ToDo With React
+            </Navbar.Brand>
+            
+            <Navbar.Collapse id="basic-navbar-nav" expand="lg" style={{marginLeft:"2rem"}}>
+            <FontAwesomeIcon icon={faSearch} size="1x" color="#5f6368" />
+                    <input
                         type="text"
-                        placeholder="Arama yapın"
-
-                        style={{ borderWidth: "0px", fontSize: "16px" }}
+                        placeholder="Başlığa göre arama yapın"
+                        style={{ borderWidth: "0px", fontSize: "16px", padding:"1px",width:"100%", marginLeft:"0.5rem"}}
                     />
-
-                </Form>
+               
             </Navbar.Collapse>
             <Navbar.Collapse className="justify-content-end mr-5">
 
 
              {props && props.token ?
                         <NavDropdown title={props.user.name ?  props.user.name : "user"} id="collasible-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Notlar</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Arşiv</NavDropdown.Item>
+                            <NavDropdown.Item href="/">Notlar</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="/logout">Çıkış Yap</NavDropdown.Item>
                         </NavDropdown> 

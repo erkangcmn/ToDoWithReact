@@ -32,7 +32,8 @@ function UpdateNoteModal({ getNoteReducer, setNote }) {
   function saveNote() {
     api.put("/api/edit-reminder/" + note.id, {
       title,
-      content
+      content,
+      color:cardColor
     }).then(response => {
       if (response.data.status == false) {
         console.log('İşlem sırasında bir hata oluştu')
@@ -63,7 +64,7 @@ function UpdateNoteModal({ getNoteReducer, setNote }) {
             placeholder="Note alın.."
             value={content}
             onChange={e => setContent(e.target.value)}
-            className={cardColor.length > 0 ? "placeholderDivWhite addNoteDiv addNoteContent " : "addNoteDiv addNoteContent "}
+            className={cardColor && cardColor.length > 0 ? "placeholderDivWhite addNoteDiv addNoteContent " : "addNoteDiv addNoteContent "}
           />
          
         </Modal.Body>

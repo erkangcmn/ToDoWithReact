@@ -14,7 +14,6 @@ import { faTrashAlt, faEdit, faFileArchive } from '@fortawesome/free-regular-svg
 import UserInfo from "../Components/LeftMenuBar/LeftMenuBar"
 import AddNote from "../NoteOperetion/AddNote/AddNote"
 import UpdateNoteModal from "../NoteOperetion/EditNote/EditNote"
-
 import Navbar from "../Components/Navbar/NavbarComponent"
 //style
 import styles from "./style"

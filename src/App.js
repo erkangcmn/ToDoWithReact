@@ -10,7 +10,7 @@ import {
 import Home from './screens/Home/Home'
 import Login from "./screens/Authenticate/Login/Login"
 import LogOut from "./screens/Authenticate/LogOut/logOut"
-
+import Register from "./screens/Authenticate/Register/Register"
 
 
 function App() {
@@ -23,6 +23,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/logout" component={LogOut} />
+        <Route path="/register" component={Register} />
       </Switch>
 
     </Router>
