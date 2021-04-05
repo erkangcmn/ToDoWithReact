@@ -4,7 +4,7 @@ import initialState from "./initialState";
 export default function noteReducer(state = initialState.Note, action) {
 	switch (action.type) {
 		case actionTypes.NOTEOPERATION:
-
+				// some sayesinde true veya false kontrolü yaptık
 			if (state.some(e => e.id == action.payload.id) && action.payload.status == "delete") { // delete note
 				var deleteNote = action.payload.id
 				const res = state.filter(({ id }) => !deleteNote.includes(id));
