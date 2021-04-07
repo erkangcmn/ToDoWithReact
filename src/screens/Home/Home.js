@@ -18,18 +18,15 @@ import Navbar from "../Components/Navbar/NavbarComponent"
 //style
 import styles from "./style"
 
-function Home({ noteReducer, setNote, getNote }) {
+function Home({ noteReducer, setNote, getNote, getUser }) {
     const history = useHistory();
-    const [user, setUser] = useState([]);
-    const [token, setToken] = useState("")
     useEffect(async () => {
         const token = await AsyncStorage.getItem('@user_token')
         if (token) {
-            setToken(token)
 
-            const id = (await AsyncStorage.getItem("@user_id"));
+           const id = (await AsyncStorage.getItem("@user_id"));
             await api.get('api/user/' + id).then(res => {
-                setUser(res.data)
+                getUser({"user":res.data, "token":token})
 
             }).catch(e => {
                 console.log("Hata => " + e)
@@ -69,14 +66,15 @@ function Home({ noteReducer, setNote, getNote }) {
     }
 
     function editNote(note) {
+        let id = note.id ? note.id : note._id
         getNote({
-            "title": note.title, "content": note.content, "id": note.id, "color": note.color, "status": "getnote"
+            "title": note.title, "content": note.content, "id": id, "color": note.color, "status": "getnote"
         })
     }
 
     return (
         <>
-            <Navbar user={user} token={token} />
+            <Navbar/>
             <Row style={{ margin: 20 }}>
                 <Col md={12} xl={2}><UserInfo /></Col>
 
@@ -84,14 +82,13 @@ function Home({ noteReducer, setNote, getNote }) {
                     <Row><AddNote /></Row>
 
                     <Row>
-
                         {
                             noteReducer.length > 0 ?
                                 noteReducer.slice(0).reverse().map((note, idx) => {
 
                                     return (
 
-                                        <Col sm={6} md={4} xl={3} key={note.id}>
+                                        <Col sm={6} md={4} xl={3} key={note.id ? note.id : note._id}>
 
                                             <Card
 
@@ -143,6 +140,10 @@ const mapDispatchToProps = dispatch => ({
     },
     getNote: (data) => {
         dispatch({ type: 'GETNOTE', payload: data }
+        )
+    },
+    getUser: (data) => {
+        dispatch({ type: 'GETUSER', payload: data }
         )
     },
 })

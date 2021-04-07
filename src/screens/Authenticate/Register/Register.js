@@ -30,7 +30,6 @@ function Login() {
                     await AsyncStorage.setItem('@user_email', email)
                     history.push("/");
                 } else {
-                    console.log(payload.message)
                     alertify.error("Beklenmedik bir hata oluştu..")
                 }
             } else {

@@ -36,6 +36,7 @@ function UpdateNoteModal({ getNoteReducer, setNote }) {
       color:cardColor
     }).then(response => {
       if (response.data.status == false) {
+
         console.log('İşlem sırasında bir hata oluştu')
       } else {
 

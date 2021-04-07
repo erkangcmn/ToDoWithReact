@@ -1,6 +1,5 @@
-
-
 export default {
   Note: [],
-  GetNote:[]
+  GetNote:[],
+  User:[]
 };

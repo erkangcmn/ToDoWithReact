@@ -10,12 +10,16 @@ export default function noteReducer(state = initialState.Note, action) {
 				const res = state.filter(({ id }) => !deleteNote.includes(id));
 				return res
 
-			} if (action.payload.status == "update") { // update note
+			} 
+			if (action.payload.status == "update") { // update note
 				var updateNote = state.map(note => {
 					if (note.id == action.payload.id) { return action.payload } else { return note }
 				});
 				return updateNote
-			} else {
+			} if(action.payload.status =="search"){
+				return action.payload.data.data
+				 
+			}else {
 				return [...state, action.payload];
 			}
 		default:
