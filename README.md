@@ -1,4 +1,4 @@
-<h1>ReactJS ile TO DO Web Uygulamam</h1>
+<h1>ReactJS ve NodeJS ile TO DO Web Uygulamam</h1>
 
 <p>Backendini NodeJS ile frontednini ReactJS yazdığım Todo web uygulamamın görsellerini aşağıda paylaşıyorum</p>
 
