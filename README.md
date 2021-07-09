@@ -2,7 +2,7 @@
 
 <p>Backendini NodeJS ile frontendini ReactJS yazdığım Todo web uygulamamın görsellerini paylaşarak anlatacağım</p>
 
-<h5>Kayıt ve Giriş Yap Ekranı </h5>
+<h3>Kayıt ve Giriş Yap Ekranı </h3>
 <ul>
   <li>
     <p>Kayıt olma ekranında gerekli yerleri doldurduktan sonra kayıt düğmesine basarak kayıt olabilirsiniz.</p>
@@ -17,7 +17,7 @@
 <img src="https://github.com/erkangcmn/ToDoWithReact/blob/main/src/img/todo.png"><br><hr>
 
 
-<h5>Yeni Bir Not Ekleme, Düzenleme ve Silme</h5>
+<h3>Yeni Bir Not Ekleme, Düzenleme ve Silme</h3>
 
 <ul>
   <li>
@@ -26,4 +26,10 @@
 </ul>
 <img src="https://github.com/erkangcmn/ToDoWithReact/blob/main/src/img/todo-1.png"><br><hr>
 
+<ul>
+  <li>
+    <p>Fotoğrafta yer alan 1 numaralı yere tıklarsanız yazmış olduğunuz notu düzenlemeniz bir için bir pop-up ekranı açılır, 3 numaralı yere tıklarsanız yazdığnız notu silersiniz.</p>
+  </li>
+</ul>
+<img src="https://github.com/erkangcmn/ToDoWithReact/blob/main/src/img/todo-2.png"><br><hr>
 
