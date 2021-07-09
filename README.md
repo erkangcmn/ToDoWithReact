@@ -33,3 +33,10 @@
 </ul>
 <img src="https://github.com/erkangcmn/ToDoWithReact/blob/main/src/img/todo-2.png"><br><hr>
 
+<ul>
+  <li>
+    <p>Yazdığınız notları düzenlerken daha önceden belirlediğiniz not rengini değiştirebilirsiniz.</p>
+  </li>
+</ul>
+<img src="https://github.com/erkangcmn/ToDoWithReact/blob/main/src/img/todo-3.png"><br><hr>
+
