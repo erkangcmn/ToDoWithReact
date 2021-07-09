@@ -14,13 +14,16 @@
     <p>Kayıt olduktan sonra giriş ekranında mailinizi ve şifrenizi yazarak giriş yapabilirsiniz.</p>
   </li>
 </ul>
-<img src="https://github.com/erkangcmn/ToDoWithReact/blob/main/src/img/todo-register.png"><br><hr>
+<img src="https://github.com/erkangcmn/ToDoWithReact/blob/main/src/img/todo.png"><br><hr>
 
-<img src="https://github.com/erkangcmn/ToDoWithReact/blob/main/src/img/todo-1.png"><br><hr>
+
+<h5>Yeni Bir Not Ekleme, Düzenleme ve Silme</h5>
+
 <ul>
   <li>
-    <p>Uygulamaya kayıt olarak giriş yapabiliyorsunuz, giriş yaptıktan sonra sizi karşılayan</p>
+    <p>Uygulamaya giriş yaptıktan sonra sizi karşılayan anasayfada, size sunulan renklerden birini seçerek yeni notlar oluşturabilirsiniz</p>
   </li>
 </ul>
+<img src="https://github.com/erkangcmn/ToDoWithReact/blob/main/src/img/todo-1.png"><br><hr>
 
 
